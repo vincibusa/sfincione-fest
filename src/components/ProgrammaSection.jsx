@@ -66,17 +66,38 @@ const ProgrammaSection = () => {
   const tabVariants = {
     inactive: {
       scale: 1,
-      backgroundColor: "transparent",
-      color: "#1A1B41", // blu-notte color
-      borderBottom: "2px solid #CC3333" // rosso-salsa color
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      color: "#1A1B41",
+      borderBottom: "2px solid #CC3333"
     },
     active: {
       scale: 1.05,
-      backgroundColor: "#CC3333", // rosso-salsa color
-      color: "#F5F5DC", // beige-chiaro color
+      backgroundColor: "#CC3333",
+      color: "#F5F5DC",
       borderBottom: "none"
     }
   };
+
+  const eventListVariants = {
+    enter: {
+      opacity: 0,
+      y: 20
+    },
+    center: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3
+      }
+    }
+};
 
   return (
     <motion.section 
@@ -88,7 +109,6 @@ const ProgrammaSection = () => {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      {/* Subtle decoration for visual interest */}
       <div className="absolute inset-0 bg-gradient-to-b from-beige-chiaro via-beige-chiaro to-beige-chiaro/80 pointer-events-none"></div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -101,9 +121,10 @@ const ProgrammaSection = () => {
           Programma
         </motion.h2>
 
-        {/* Tabs */}
+        {/* Tabs container with horizontal scroll */}
+        <div className="overflow-x-auto mb-12 -mx-4 px-4 md:px-0 md:mx-0">
         <motion.div 
-          className="flex flex-wrap justify-center mb-12"
+            className="flex flex-nowrap md:flex-wrap justify-start md:justify-center min-w-max"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -111,37 +132,40 @@ const ProgrammaSection = () => {
           {days.map((day, index) => (
             <motion.button
               key={index}
-              className={`px-6 py-3 mx-3 mb-3 rounded-lg text-lg font-medium transition-all shadow-sm`}
-              variants={tabVariants}
-              animate={activeTab === index ? "active" : "inactive"}
-              whileHover={{ 
-                scale: 1.05, 
-                backgroundColor: activeTab === index ? "#CC3333" : "rgba(204, 51, 51, 0.1)" 
-              }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setActiveTab(index)}
-            >
-              {day}
-            </motion.button>
-          ))}
-        </motion.div>
+                className={`
+                  px-6 py-3 mx-2 rounded-lg text-lg font-medium 
+                  transition-all shadow-sm whitespace-nowrap
+                  first:ml-0 last:mr-0
+                `}
+                variants={tabVariants}
+                animate={activeTab === index ? "active" : "inactive"}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: activeTab === index ? "#CC3333" : "rgba(204, 51, 51, 0.1)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActiveTab(index)}
+              >
+                {day}
+              </motion.button>
+            ))}
+          </motion.div>
+      </div>
 
-        {/* Event Cards */}
-        <AnimatePresence mode="wait">
-          <motion.div 
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.div
             key={activeTab}
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            exit={{ opacity: 0 }}
+            variants={eventListVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
           >
             {events[activeTab].map((event, index) => (
               <motion.div
                 key={index}
-                variants={itemVariants}
                 className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-md border border-rosso-salsa/10"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
                   backgroundColor: "rgba(255, 255, 255, 0.9)",
                   borderColor: "rgba(204, 51, 51, 0.3)",
@@ -149,27 +173,15 @@ const ProgrammaSection = () => {
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <motion.div 
-                  className="text-rosso-salsa font-bold text-2xl mb-3"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
+                <div className="text-rosso-salsa font-bold text-2xl mb-3">
                   {event.time}
-                </motion.div>
-                <motion.h3 
-                  className="font-sunshine text-3xl text-nero mb-3"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
+                </div>
+                <h3 className="font-sunshine text-3xl text-nero mb-3">
                   {event.title}
-                </motion.h3>
-                <motion.p 
-                  className="text-nero/80 text-lg"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
+                </h3>
+                <p className="text-nero/80 text-lg">
                   {event.desc}
-                </motion.p>
+                </p>
               </motion.div>
             ))}
           </motion.div>

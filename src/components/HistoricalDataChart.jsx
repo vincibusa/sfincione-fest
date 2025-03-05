@@ -94,7 +94,7 @@ const HistoricalDataChart = () => {
           {payload.map((entry, index) => (
             <div key={index} className="font-gotham text-sm">
               <span style={{ color: entry.color }}>
-                {entry.name === 'anno2017' ? '2017: ' : '2024: '}
+                {entry.name === '2017' ? '2017: ' : '2024: '}
                 {entry.value.toLocaleString()}
         </span>
       </div>
