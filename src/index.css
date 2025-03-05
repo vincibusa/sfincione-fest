@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rosso-mattone: #B22222;
+  --giallo-ocra: #FFD700;
+  --verde-salvia: #6B8E23;
+  --beige-chiaro: #F5F5DC;
+  /* Rimosso blu-notte: #003366; */
+  --bianco: #FFFFFF;
+  --nero: #000000;
+  --rosso-salsa: #CC3333;
+  --marroncino: #F2C26B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+  color: var(--nero); /* Sostituito var(--blu-notte) con var(--nero) */
+  background-color: var(--beige-chiaro);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Dancing Script', cursive;
+  line-height: 1.2;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-rosso-mattone text-beige-chiaro py-2 px-6 rounded-full font-gotham font-medium 
+    hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-beige-chiaro text-beige-chiaro py-2 px-6 rounded-full font-gotham font-medium 
+    hover:bg-beige-chiaro hover:text-nero hover:scale-105 transition-all duration-300 ease-in-out;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-verde-salvia text-verde-salvia py-2 px-6 rounded-full font-gotham font-medium 
+    hover:bg-verde-salvia hover:text-beige-chiaro hover:scale-105 transition-all duration-300 ease-in-out;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-sunshine mb-6 text-center;
+  }
+  
+  .container-custom {
+    @apply container mx-auto px-4 py-16 md:py-24;
+  }
+}
