@@ -160,7 +160,7 @@ const HeroSection = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row justify-center gap-4 px-4"
+              className="flex flex-col sm:flex-row justify-center gap-4 px-4 w-full max-w-2xl mx-auto"
               variants={contentVariants}
             >
               <motion.a
@@ -171,7 +171,7 @@ const HeroSection = () => {
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-rosso-mattone text-beige-chiaro px-6 py-3 rounded-md transition-all duration-300 text-lg sm:text-xl hover:bg-rosso-salsa shadow-lg cursor-pointer"
+                className="flex-1 bg-rosso-mattone text-beige-chiaro px-6 py-3 rounded-md transition-all duration-300 text-lg sm:text-xl hover:bg-rosso-salsa shadow-lg cursor-pointer text-center min-w-[200px]"
               >
                 Acquista Ticket
               </motion.a>
@@ -184,7 +184,7 @@ const HeroSection = () => {
                 }}
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(242, 234, 218, 0.2)" }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-beige-chiaro text-beige-chiaro px-6 py-3 rounded-md transition-all duration-300 text-lg sm:text-xl backdrop-blur-sm shadow-lg cursor-pointer"
+                className="flex-1 border-2 border-beige-chiaro text-beige-chiaro px-6 py-3 rounded-md transition-all duration-300 text-lg sm:text-xl backdrop-blur-sm shadow-lg cursor-pointer text-center min-w-[200px]"
               >
                 Scopri il Programma
               </motion.a>
